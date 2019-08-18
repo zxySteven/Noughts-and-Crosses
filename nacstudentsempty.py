@@ -3,8 +3,10 @@ import pygame, random, time, sys, requests
 convert = {1:"EMPTY", 2:"OPPONENT", 3:"PLAYER"}
 deconvert = {"top_left":0, "top_middle":1, "top_right":2, "middle_left":3, "middle_middle":4, "middle_right":5, "bottom_left":6, "bottom_middle":7, "bottom_right":8, 0:"top_left", 1:"top_middle", 2:"top_right", 3:"middle_left", 4:"middle_middle", 5:"middle_right", 6:"bottom_left", 7:"bottom_middle", 8:"bottom_right"}
 
+key = ""
+global key
+
 def classify(board):
-    key = "28ac3930-bf5d-11e9-a039-73fac408bf8eff84e7fc-9446-4e10-8710-b36f451812c4"
     url = "https://machinelearningforkids.co.uk/api/scratch/"+ key + "/classify"
     convertedboard = []
     for i in range(9):
@@ -34,7 +36,6 @@ def add_to_train(board, label):
     for i in range(9):
         numbers.append(convert[board[i]])
         data.append("data" + str(i+1))
-    key = "28ac3930-bf5d-11e9-a039-73fac408bf8eff84e7fc-9446-4e10-8710-b36f451812c4"
     url = "https://machinelearningforkids.co.uk/api/scratch/"+ key + "/train" 
 
     response = requests.post(url, json={ "data" : numbers, "label" : label })
@@ -45,7 +46,6 @@ def add_to_train(board, label):
         response.raise_for_status()
 
 def train_new_model():
-    key = "28ac3930-bf5d-11e9-a039-73fac408bf8eff84e7fc-9446-4e10-8710-b36f451812c4"
     url = "https://machinelearningforkids.co.uk/api/scratch/"+ key + "/models" 
     response = requests.post(url)
 
