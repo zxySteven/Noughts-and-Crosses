@@ -3,8 +3,8 @@ import pygame, random, time, sys, requests
 convert = {1:"EMPTY", 2:"OPPONENT", 3:"PLAYER"}
 deconvert = {"top_left":0, "top_middle":1, "top_right":2, "middle_left":3, "middle_middle":4, "middle_right":5, "bottom_left":6, "bottom_middle":7, "bottom_right":8, 0:"top_left", 1:"top_middle", 2:"top_right", 3:"middle_left", 4:"middle_middle", 5:"middle_right", 6:"bottom_left", 7:"bottom_middle", 8:"bottom_right"}
 
-key = ""
 global key
+key = ""
 
 def classify(board):
     url = "https://machinelearningforkids.co.uk/api/scratch/"+ key + "/classify"
