@@ -127,6 +127,7 @@ def classify(board):
     else:
         # something went wrong - there was an error when trying to
         #  use your ML model
+        print(response.json())
         response.raise_for_status()
 
 
@@ -159,6 +160,7 @@ def add_to_train(board, who, name_of_space):
         pass
     else:
         # something went wrong
+        print(response.json())
         response.raise_for_status()
 
 
@@ -176,6 +178,7 @@ def train_new_model():
         pass
     else:
         # something went wrong
+        print(response.json())
         response.raise_for_status()
 
 
