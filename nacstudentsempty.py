@@ -156,7 +156,7 @@ def add_to_train(board, who, name_of_space):
 
     if response.ok:
         # training data stored okay
-        return
+        pass
     else:
         # something went wrong
         response.raise_for_status()
@@ -173,7 +173,7 @@ def train_new_model():
 
     if response.ok:
         # machine learning model trained successfully
-        return
+        pass
     else:
         # something went wrong
         response.raise_for_status()
