@@ -132,7 +132,7 @@ def classify(board):
 
 
 # Add a move that resulted in a win to the training data for the
-#  machine learning model
+# machine learning model
 #
 #  board         :  list of board spaces with the current state of each space
 #      e.g.  [ HUMAN, COMPUTER, HUMAN, EMPTY, EMPTY, HUMAN, COMPUTER, HUMAN, COMPUTER ]
@@ -163,8 +163,8 @@ def add_to_train(board, who, name_of_space):
 
 
 
-# Train a new machine learning model using the training data
-#  that has been collected so far
+# Train a new machine learning model using the training data
+# that has been collected so far
 def train_new_model():
     print ("Training a new machine learning model")
 
@@ -441,7 +441,7 @@ def generate_random_colour():
 #  screen        :  The PyGame screen to draw the move on
 #  name_of_space :  Name of the space to draw the move on
 #                    e.g.    middle_right
-#  move          :  The move to draw.
+#  move          :  The move to draw.
 #                   It will be either "nought" or "cross"
 def draw_move(screen, name_of_space, move):
     debug("Drawing a move on the game board : %s in %s" % (move, name_of_space))
@@ -533,7 +533,7 @@ def game_move(screen, board, name_of_space, identity):
         learn_from_this(identity, gamehistory[identity], decisions[identity])
 
     # the game is also over if the board is full (a draw!)
-    # 
+    #
     # and the board is full if both players together
     #  have made 9 moves in total
     if len(decisions[HUMAN]) + len(decisions[COMPUTER]) >= 9:
