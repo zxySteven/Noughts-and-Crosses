@@ -204,6 +204,32 @@ def learn_from_this(winner, boardhistory, winnerdecisions):
 # Noughts and Crosses logic
 ############################################################################
 
+# get the location of a space on the board (an index from 0 to 8)
+#
+# This uses the lookup table 'deconvert' and copes with
+#  student projects that have different spellings for
+#  the spaces on the board.
+#
+#  name_of_space :  name of the space to check
+#            e.g.    middle_right
+def get_space_location(name_of_space):
+    # uses the default spelling if found
+    if name_of_space in deconvert:
+        return deconvert[name_of_space]
+    # otherwise tries the overrides
+    return deconvert[globals()[name_of_space]]
+
+
+# gets the contents of a space on the board
+#
+#  board         :  list of board spaces with the contents of each space
+#      e.g.  [ HUMAN, COMPUTER, HUMAN, EMPTY, EMPTY, HUMAN, COMPUTER, HUMAN, COMPUTER ]
+#  name_of_space :  name of the space to check
+#            e.g.    middle_right
+def get_space_contents(board, name_of_space):
+    return board[get_space_location(name_of_space)]
+
+
 # checks to see if a specific space on the board is currently empty
 #
 #  board         :  list of board spaces with the contents of each space
@@ -211,8 +237,7 @@ def learn_from_this(winner, boardhistory, winnerdecisions):
 #  name_of_space :  name of the space to check
 #            e.g.    middle_right
 def is_space_empty(board, name_of_space):
-    index_of_space = deconvert[name_of_space]
-    return board[index_of_space] == EMPTY
+    return get_space_contents(board, name_of_space) == EMPTY
 
 
 
@@ -256,70 +281,69 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 
 
-game_board_coordinates = {
-    "top_left": {
-        "bottom_left_corner": (120, 120),
-        "top_right_corner": (180, 180),
-        "top_left_corner": (180, 120),
-        "bottom_right_corner": (120, 180),
-        "centre": (150, 150)
-    },
-    "top_middle" : {
-        "bottom_left_corner": (220, 120),
-        "top_right_corner": (280, 180),
-        "top_left_corner": (220, 180),
-        "bottom_right_corner": (280, 120),
-        "centre": (250, 150)
-    },
-    "top_right" : {
-        "bottom_left_corner": (320, 120),
-        "top_right_corner": (380, 180),
-        "top_left_corner": (320, 180),
-        "bottom_right_corner": (380, 120),
-        "centre": (350, 150)
-    },
-    "middle_left" : {
-        "bottom_left_corner": (120, 220),
-        "top_right_corner": (180, 280),
-        "top_left_corner": (120, 280),
-        "bottom_right_corner": (180, 220),
-        "centre": (150, 250)
-    },
-    "middle_middle" : {
-        "bottom_left_corner": (220, 220),
-        "top_right_corner": (280, 280),
-        "top_left_corner": (220, 280),
-        "bottom_right_corner": (280, 220),
-        "centre": (250, 250)
-    },
-    "middle_right" : {
-        "bottom_left_corner": (320, 220),
-        "top_right_corner": (380, 280),
-        "top_left_corner": (320, 280),
-        "bottom_right_corner": (380, 220),
-        "centre": (350, 250)
-    },
-    "bottom_left" : {
-        "bottom_left_corner": (120, 320),
-        "top_right_corner": (180, 380),
-        "top_left_corner": (120, 380),
-        "bottom_right_corner": (180, 320),
-        "centre": (150, 350)
-    },
-    "bottom_middle" : {
-        "bottom_left_corner": (220, 320),
-        "top_right_corner": (280, 380),
-        "top_left_corner": (220, 380),
-        "bottom_right_corner": (280, 320),
-        "centre": (250, 350)
-    },
-    "bottom_right" : {
-        "bottom_left_corner": (320, 320),
-        "top_right_corner": (380, 380),
-        "top_left_corner": (320, 380),
-        "bottom_right_corner": (380, 320),
-        "centre": (350, 350)
-    }
+game_board_coordinates = {}
+game_board_coordinates[top_left] = {
+    "bottom_left_corner": (120, 120),
+    "top_right_corner": (180, 180),
+    "top_left_corner": (180, 120),
+    "bottom_right_corner": (120, 180),
+    "centre": (150, 150)
+}
+game_board_coordinates[top_middle] = {
+    "bottom_left_corner": (220, 120),
+    "top_right_corner": (280, 180),
+    "top_left_corner": (220, 180),
+    "bottom_right_corner": (280, 120),
+    "centre": (250, 150)
+}
+game_board_coordinates[top_right] = {
+    "bottom_left_corner": (320, 120),
+    "top_right_corner": (380, 180),
+    "top_left_corner": (320, 180),
+    "bottom_right_corner": (380, 120),
+    "centre": (350, 150)
+}
+game_board_coordinates[middle_left] = {
+    "bottom_left_corner": (120, 220),
+    "top_right_corner": (180, 280),
+    "top_left_corner": (120, 280),
+    "bottom_right_corner": (180, 220),
+    "centre": (150, 250)
+}
+game_board_coordinates[middle_middle] = {
+    "bottom_left_corner": (220, 220),
+    "top_right_corner": (280, 280),
+    "top_left_corner": (220, 280),
+    "bottom_right_corner": (280, 220),
+    "centre": (250, 250)
+}
+game_board_coordinates[middle_right] = {
+    "bottom_left_corner": (320, 220),
+    "top_right_corner": (380, 280),
+    "top_left_corner": (320, 280),
+    "bottom_right_corner": (380, 220),
+    "centre": (350, 250)
+}
+game_board_coordinates[bottom_left] = {
+    "bottom_left_corner": (120, 320),
+    "top_right_corner": (180, 380),
+    "top_left_corner": (120, 380),
+    "bottom_right_corner": (180, 320),
+    "centre": (150, 350)
+}
+game_board_coordinates[bottom_middle] = {
+    "bottom_left_corner": (220, 320),
+    "top_right_corner": (280, 380),
+    "top_left_corner": (220, 380),
+    "bottom_right_corner": (280, 320),
+    "centre": (250, 350)
+}
+game_board_coordinates[bottom_right] = {
+    "bottom_left_corner": (320, 320),
+    "top_right_corner": (380, 380),
+    "top_left_corner": (320, 380),
+    "bottom_right_corner": (380, 320),
+    "centre": (350, 350)
 }
 
 
@@ -341,32 +365,32 @@ def display_winner(screen, board, who):
     linecolour = GREEN if who == HUMAN else RED
 
     ######## Rows ########
-    if board[deconvert["top_left"]] == who and board[deconvert["top_middle"]] == who and board[deconvert["top_right"]] == who:
+    if get_space_contents(board, "top_left") == who and get_space_contents(board, "top_middle") == who and get_space_contents(board, "top_right") == who:
         pygame.draw.line(screen, linecolour, (100, 150), (400, 150), 10)
         gameover = True
-    if board[deconvert["middle_left"]] == who and board[deconvert["middle_middle"]] == who and board[deconvert["middle_right"]] == who:
+    if get_space_contents(board, "middle_left") == who and get_space_contents(board, "middle_middle") == who and get_space_contents(board, "middle_right") == who:
         pygame.draw.line(screen, linecolour, (100, 250), (400, 250), 10)
         gameover = True
-    if board[deconvert["bottom_left"]] == who and board[deconvert["bottom_middle"]] == who and board[deconvert["bottom_right"]] == who:
+    if get_space_contents(board, "bottom_left") == who and get_space_contents(board, "bottom_middle") == who and get_space_contents(board, "bottom_right") == who:
         pygame.draw.line(screen, linecolour, (100, 350), (400, 350), 10)
         gameover = True
 
     ######## Columns ########
-    if board[deconvert["top_left"]] == who and board[deconvert["middle_left"]] == who and board[deconvert["bottom_left"]] == who:
+    if get_space_contents(board, "top_left") == who and get_space_contents(board, "middle_left") == who and get_space_contents(board, "bottom_left") == who:
         pygame.draw.line(screen, linecolour, (150, 100), (150, 400), 10)
         gameover = True
-    if board[deconvert["top_middle"]] == who and board[deconvert["middle_middle"]] == who and board[deconvert["bottom_middle"]] == who:
+    if get_space_contents(board, "top_middle") == who and get_space_contents(board, "middle_middle") == who and get_space_contents(board, "bottom_middle") == who:
         pygame.draw.line(screen, linecolour, (250, 100), (250, 400), 10)
         gameover = True
-    if board[deconvert["top_right"]] == who and board[deconvert["middle_right"]] == who and board[deconvert["bottom_right"]] == who:
+    if get_space_contents(board, "top_right") == who and get_space_contents(board, "middle_right") == who and get_space_contents(board, "bottom_right") == who:
         pygame.draw.line(screen, linecolour, (350, 100), (350, 400), 10)
         gameover = True
 
     ######## Diagonals #########
-    if board[deconvert["top_left"]] == who and board[deconvert["middle_middle"]] == who and board[deconvert["bottom_right"]] == who:
+    if get_space_contents(board, "top_left") == who and get_space_contents(board, "middle_middle") == who and get_space_contents(board, "bottom_right") == who:
         pygame.draw.line(screen, linecolour, (100, 100), (400, 400), 15)
         gameover = True
-    if board[deconvert["bottom_left"]] == who and board[deconvert["middle_middle"]] == who and board[deconvert["top_right"]] == who:
+    if get_space_contents(board, "bottom_left") == who and get_space_contents(board, "middle_middle") == who and get_space_contents(board, "top_right") == who:
         pygame.draw.line(screen, linecolour, (400, 100), (100, 400), 15)
         gameover = True
 
@@ -477,25 +501,25 @@ def get_click_location(mx, my):
     if 100 < mx < 400 and 100 < my < 400:
         if my < 200:
             if mx < 200:
-                return "top_left"
+                return top_left
             elif mx < 300:
-                return "top_middle"
+                return top_middle
             else:
-                return "top_right"
+                return top_right
         elif my < 300:
             if mx < 200:
-                return "middle_left"
+                return middle_left
             elif mx < 300:
-                return "middle_middle"
+                return middle_middle
             else:
-                return "middle_right"
+                return middle_right
         else:
             if mx < 200:
-                return "bottom_left"
+                return bottom_left
             elif mx < 300:
-                return "bottom_middle"
+                return bottom_middle
             else:
-                return "bottom_right"
+                return bottom_right
     return "none"
 
 
@@ -526,7 +550,7 @@ def game_move(screen, board, name_of_space, identity):
     decisions[identity].append(name_of_space)
 
     # update the board to include the move
-    movelocation = deconvert[name_of_space]
+    movelocation = get_space_location(name_of_space)
     board[movelocation] = identity
 
     # have they won the game?
