@@ -641,3 +641,7 @@ while running:
         #  were processing their click, so they don't try to
         #  sneakily have lots of moves at once
         pygame.event.clear()
+
+# explicitly quit pygame to ensure the app terminates correctly
+#  cf. https://www.pygame.org/wiki/FrequentlyAskedQuestions
+pygame.quit()
