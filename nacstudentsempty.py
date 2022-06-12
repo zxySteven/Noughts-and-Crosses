@@ -10,7 +10,7 @@ import random
 
 # API KEY  - the unique private code for your Machine Learning project
 global KEY
-KEY = "put-your-project-API-key-here"
+KEY ="d8295dd0-ea47-11ec-9987-352aafd324363eaddd58-2aa1-42ac-a6e7-41c3fab7b603"
 
 
 
@@ -196,7 +196,8 @@ def learn_from_this(winner, boardhistory, winnerdecisions):
         print("\nAt the start of move %d the board looked like this:" % (idx + 1))
         print(boardhistory[idx])
         print("And %s decided to put their mark in %s" % (winner, winnerdecisions[idx]))
-
+        add_to_train(boardhistory[idx], winner, winerdecisions[idx])
+    train_new_model()
 
 
 
